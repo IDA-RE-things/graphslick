@@ -340,14 +340,14 @@ bool groupman_t::parse_nodeset(
   // Find node group bounds
   for ( /*init*/ char *p_group_start = NULL, *p_group_end = NULL;
         /* cond*/(p_group_start = strchr(grpstr, '(')) != NULL
-             && (p_group_start = skip_spaces(p_group_start+1), (p_group_end = strchr(p_group_start, ')')) != NULL);
+             && (p_group_start = skipSpaces(p_group_start+1), (p_group_end = strchr(p_group_start, ')')) != NULL);
         /*incr*/)
   {
     // Terminate the string with the closing parenthesis
     *p_group_end = '\0';
 
     // Advance to next group
-    grpstr = skip_spaces(p_group_end + 1);
+    grpstr = skipSpaces(p_group_end + 1);
 
     // Add a new group
     pnodegroup_t ng = sg->add_nodegroup();
@@ -358,7 +358,7 @@ bool groupman_t::parse_nodeset(
          /*cond*/ p != NULL;
          /*incr*/ p = qstrtok(NULL, ",", &saved_ptr))
     {
-      p = skip_spaces(p);
+      p = skipSpaces(p);
 
       int nid;
       ea_t start = 0, end = 0;
@@ -630,10 +630,10 @@ bool groupman_t::parse_line(
 
     // Kill separator and adjust value pointer
     *val++ = '\0';
-    val = skip_spaces(val);
+    val = skipSpaces(val);
 
     // Set key pointer
-    char *key = skip_spaces(token);
+    char *key = skipSpaces(token);
 
     if (stricmp(key, STR_ID) == 0)
     {
@@ -678,7 +678,7 @@ bool groupman_t::parse(
     std::getline(in_file, line);
 
     // Skip comment or empty lines
-    char *s = skip_spaces((char *)line.c_str());
+    char *s = skipSpaces((char *)line.c_str());
     if (s[0] == '\0' || s[0] == '#')
       continue;
 
